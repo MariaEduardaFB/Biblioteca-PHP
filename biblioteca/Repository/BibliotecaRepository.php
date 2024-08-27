@@ -14,84 +14,75 @@ class BibliotecaRepository {
         $this->db = new Database();
     }
 
-    public function save(Biblioteca $autor) {
-        $conn = $this->db->getConnection();
+    public function save(Biblioteca $biblioteca){
+        $conn = $this -> db->getConnection();
 
-        if ($autor->getId()) {
-            $sql = "UPDATE autor SET nome=?, nacionalidade=? WHERE id=?";
+        if ($biblioteca->getId()) {
+            $sql = "UPDATE bibliotecas SET nome=?, endereco=?, telefone=? WHERE id=?";
             $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die('Erro na preparação da consulta: ' . $conn->error);
-            }
-            $stmt->bind_param("ssi", $autor->getNome(), $autor->getNacionalidade(), $autor->getId());
+            $stmt->bind_param("sssi", $biblioteca->getNome(), $biblioteca->getEndereco(), $biblioteca->getTelefone(), $biblioteca->getId());
         } else {
-            $sql = "INSERT INTO autor (nome, nacionalidade) VALUES (?, ?)";
+            $sql = "INSERT INTO bibliotecas (nome, endereco, telefone) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die('Erro na preparação da consulta: ' . $conn->error);
-            }
-            $stmt->bind_param("ss", $autor->getNome(), $autor->getNacionalidade());
+            $stmt->bind_param("sss", $biblioteca->getNome(), $biblioteca->getEndereco(), $biblioteca->getTelefone());
         }
-
+    
         $stmt->execute();
         $stmt->close();
+
+   
     }
 
-    public function delete($id) {
-        $conn = $this->db->getConnection();
-        
-        $sql = "DELETE FROM autor WHERE id=?";
+    public function delete($id){
+        $conn = $this -> db->getConnection();
+
+        $sql = "DELETE FROM bibliotecas WHERE id=?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->close();
+        
     }
 
-    public function findById($id) {
-        $conn = $this->db->getConnection();
-        
-        $sql = "SELECT id, nome, nacionalidade FROM autor WHERE id=?";
+    public function findById($id){
+        $conn = $this -> db->getConnection();
+
+        $sql = "SELECT id, nome, endereco, telefone FROM bibliotecas WHERE id=?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die('Erro na preparação da consulta: ' . $conn->error);
-        }
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($id, $nome, $nacionalidade);
+        $stmt->bind_result($id, $nome, $endereco, $telefone);
 
         if ($stmt->fetch()) {
+            $biblioteca = new Biblioteca($id, $nome, $endereco, $telefone);
             $stmt->close();
-            return new Autor($id, $nome, $nacionalidade);
+            return $biblioteca;
         }
 
         $stmt->close();
         return null;
+        
     }
 
     public function findAll() {
         $conn = $this->db->getConnection();
-        
-        $sql = "SELECT id, nome, nacionalidade FROM autor";
+    
+        $sql = "SELECT id, nome, endereco, telefone FROM bibliotecas";
         $result = $conn->query($sql);
-
-        if ($result === false) {
-            die('Erro na execução da consulta: ' . $conn->error);
-        }
-
-        $autores = [];
+    
+        $bibliotecas = [];
         while ($row = $result->fetch_assoc()) {
-            $autores[] = new Autor($row['id'], $row['nome'], $row['nacionalidade']);
+            $bibliotecas[] = new Biblioteca($row['id'], $row['nome'], $row['endereco'], $row['telefone']);
         }
-
+    
         $result->free();
-        return $autores;
+        return $bibliotecas;
     }
 
-    public function __destruct() {
-        $this->db->closeConnection(); // Fecha a conexão quando o objeto for destruído
+    public function __destruct(){
+        $conn = $this -> db->closeConnection();
+    
     }
+
 }
 ?>

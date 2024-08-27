@@ -1,3 +1,6 @@
+<?php
+namespace Model;
+
 namespace Model;
 
 use db\Database;
@@ -62,3 +65,6 @@ class Biblioteca {
         return $livros;
     }
 }
+
+
+?>

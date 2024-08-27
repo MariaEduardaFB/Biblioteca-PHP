@@ -10,37 +10,42 @@ use Repository\BibliotecaRepository;
 use db\Database;
 
 
-class AutorController {
+class BibliotecaController {
+
+    
+
     private $repository;
 
-    public function __construct() {
+    public function __construct(){
         $this->repository = new BibliotecaRepository();
     }
 
-    public function cadastrarAutor($nome, $nacionalidade) {
-        $autor = new Biblioteca(null, $nome, $nacionalidade);
-        $this->repository->save($autor);
+    public function cadastrarBiblioteca($nome, $endereco, $telefone){
+        $biblioteca = new Biblioteca(null, $nome, $endereco, $telefone);
+        $this->repository->save($biblioteca);
     }
-
-    public function editarAutor($id, $nome, $nacionalidade) {
-        $autor = $this->repository->findById($id);
-        if ($autor) {
-            $autor->setNome($nome);
-            $autor->setNacionalidade($nacionalidade);
-            $this->repository->save($autor);
+    public function editarBiblioteca($id, $nome, $endereco, $telefone){
+        $biblioteca = $this->repository->findById($id);
+        if($biblioteca){
+            $biblioteca->setNome($nome);
+            $biblioteca->setEndereco($endereco);
+            $biblioteca->setTelefone($telefone);
+            $this->repository->save($biblioteca);
         }
     }
-
-    public function excluirAutor($id) {
-        $this->repository->delete($id);
+    public function excluirBiblioteca($id){
+        return $this->repository->delete($id);
     }
 
-    public function listarAutores() {
-        return $this->repository->findAll();
-    }
-
-    public function getAutorById($id) {
+    public function getBibliotecaById($id){
         return $this->repository->findById($id);
     }
+
+    public function listarBibliotecas($id){
+        return $this->repository->findAll($id);
+    }
+
+
+    
 }
 ?>
