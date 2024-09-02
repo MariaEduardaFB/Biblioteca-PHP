@@ -14,7 +14,7 @@ class Livro {
         $this->idAutor = $idAutor;
     }
 
-    public function getId() {
+    public function getIdLivro() {
         return $this->id;
     }
 
