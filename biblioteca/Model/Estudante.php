@@ -11,7 +11,7 @@ class Estudante {
         $this->nome = $nome;
     }
 
-    public function getId(){
+    public function getIdEstudante(){
         return $this->id;
     }
 
