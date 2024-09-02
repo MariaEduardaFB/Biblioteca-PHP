@@ -17,10 +17,10 @@ class LivroRepository {
     public function save(Livro $livro) {
         $conn = $this->db->getConnection();
 
-        if ($livro->getId()) {
+        if ($livro->getIdLivro()) {
             $sql = "UPDATE livro SET titulo=?, ano=?, idAutor=? WHERE idLivro=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("siii", $livro->getTitulo(), $livro->getAno(), $livro->getIdAutor(), $livro->getId());
+            $stmt->bind_param("siii", $livro->getTitulo(), $livro->getAno(), $livro->getIdAutor(), $livro->getIdLivro());
         } else {
             $sql = "INSERT INTO livro (titulo, ano, idAutor) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);

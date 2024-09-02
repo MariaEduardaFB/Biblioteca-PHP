@@ -14,14 +14,14 @@ class EstudanteRepository {
     public function save(Estudante $estudante){
         $conn = $this->db->getConnection();
 
-        if($estudante->getId()){
+        if($estudante->getIdEstudante()){
             $sql = "UPDATE estudante SET nome=? WHERE id=?";
             $stmt=$conn->prepare($sql);
-            $stmt->bind_param("si", $estudante->getNome(), $estudante->getId());
+            $stmt->bind_param("si", $estudante->getNome(), $estudante->getIdEstudante());
         } else {
             $sql = "INSERT INTO estudante (nome) VALUES (?)";
             $stmt=$conn->prepare($sql);
-            $stmt->bind_param("s", $estudante->getNome(), $estudante->getId());
+            $stmt->bind_param("s", $estudante->getNome(), $estudante->getIdEstudante());
         }
 
         $stmt->execute();
