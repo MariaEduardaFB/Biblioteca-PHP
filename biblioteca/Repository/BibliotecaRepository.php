@@ -1,11 +1,9 @@
 <?php
-
 namespace Repository;
 
-require_once '../db/Database.php';
-include_once '../Model/Biblioteca.php';
-use Model\Biblioteca;
 use db\Database;
+use Model\Livro;
+use Model\Estudante;
 
 class BibliotecaRepository {
     private $db;
@@ -14,75 +12,58 @@ class BibliotecaRepository {
         $this->db = new Database();
     }
 
-    public function save(Biblioteca $biblioteca){
-        $conn = $this -> db->getConnection();
-
-        if ($biblioteca->getId()) {
-            $sql = "UPDATE bibliotecas SET nome=?, endereco=?, telefone=? WHERE id=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssi", $biblioteca->getNome(), $biblioteca->getEndereco(), $biblioteca->getTelefone(), $biblioteca->getId());
-        } else {
-            $sql = "INSERT INTO bibliotecas (nome, endereco, telefone) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $biblioteca->getNome(), $biblioteca->getEndereco(), $biblioteca->getTelefone());
-        }
-    
+    public function emprestarLivro(Livro $livro, Estudante $estudante): bool {
+        $sql = "SELECT COUNT(*) as total FROM Emprestimo WHERE idLivro = ? AND dataDevolucao IS NULL";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bind_param("i", $livro->getIdLivro());
         $stmt->execute();
-        $stmt->close();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
 
-   
-    }
-
-    public function delete($id){
-        $conn = $this -> db->getConnection();
-
-        $sql = "DELETE FROM bibliotecas WHERE id=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
-        
-    }
-
-    public function findById($id){
-        $conn = $this -> db->getConnection();
-
-        $sql = "SELECT id, nome, endereco, telefone FROM bibliotecas WHERE id=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->bind_result($id, $nome, $endereco, $telefone);
-
-        if ($stmt->fetch()) {
-            $biblioteca = new Biblioteca($id, $nome, $endereco, $telefone);
-            $stmt->close();
-            return $biblioteca;
+        if ($row['total'] > 0) {
+            
+            return false;
         }
 
-        $stmt->close();
-        return null;
         
+        $sql = "INSERT INTO Emprestimo (idLivro, idEstudante, dataEmprestimo) VALUES (?, ?, NOW())";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bind_param("ii", $livro->getIdLivro(), $estudante->getIdEstudante());
+        $stmt->execute();
+        return true;
     }
 
-    public function findAll() {
-        $conn = $this->db->getConnection();
-    
-        $sql = "SELECT id, nome, endereco, telefone FROM bibliotecas";
-        $result = $conn->query($sql);
-    
-        $bibliotecas = [];
+    public function devolverLivro(Livro $livro, Estudante $estudante): bool {
+        
+        $sql = "UPDATE Emprestimo SET dataDevolucao = NOW() WHERE idLivro = ? AND idEstudante = ? AND dataDevolucao IS NULL";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bind_param("ii", $livro->getIdLivro(), $estudante->getIdEstudante());
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            return true;
+        }
+
+        
+        return false;
+    }
+
+    public function livrosEmprestados(Estudante $estudante): array {
+        $sql = "SELECT l.idLivro, l.titulo FROM Livro l 
+                INNER JOIN Emprestimo e ON l.idLivro = e.idLivro 
+                WHERE e.idEstudante = ? AND e.dataDevolucao IS NULL";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->bind_param("i", $estudante->getIdEstudante());
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $livros = [];
         while ($row = $result->fetch_assoc()) {
-            $bibliotecas[] = new Biblioteca($row['id'], $row['nome'], $row['endereco'], $row['telefone']);
+            $livro = new Livro($row['idLivro'], $row['titulo'], $row['ano'], $row['idAutor']);
+            $livros[] = $livro;
         }
-    
-        $result->free();
-        return $bibliotecas;
-    }
 
-    public function __destruct(){
-        $conn = $this -> db->closeConnection();
-    
+        return $livros;
     }
-
 }
 ?>
