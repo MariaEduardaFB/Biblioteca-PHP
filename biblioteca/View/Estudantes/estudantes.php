@@ -11,7 +11,7 @@
         <h3>Gerenciamento de Biblioteca</h3>
 
         <nav>
-            <a href="../View/index.php">Início</a>
+            <a href="../index.php">Início</a>
             <a href="../Livros/livros.php">Livros</a>
             <a href="../Estudantes/estudantes.php">Estudantes</a>
             <a href="../Emprestimos/emprestimos.php">Empréstimos</a>
@@ -20,7 +20,11 @@
     </header>
 
     <main>
+    <div class="botoes2">
         <h2>Estudantes Cadastrados no Sistema</h2>
+        <a href="cadastrar_estudante.php" class="button-with-icon">Cadastrar Estudante </a>
+        </div>
+
         <ul>
             <li>João da Silva</li>
             <li>Maria Oliveira</li>

@@ -13,7 +13,7 @@
         <h3>Gerenciamento de Biblioteca</h3>
 
         <nav>
-            <a href="View/index.php">Início</a>
+            <a href="index.php">Início</a>
             <a href="Livros\livros.php">Livros</a>
             <a href="Estudantes\estudantes.php">Estudantes</a>
             <a href="Emprestimos\emprestimos.php">Empréstimos</a>

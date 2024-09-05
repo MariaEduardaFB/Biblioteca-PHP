@@ -10,7 +10,7 @@
     <header>
         <h3>Gerenciamento de Biblioteca</h3>
         <nav>
-            <a href="../View/index.php">Início</a>
+            <a href="../index.php">Início</a>
             <a href="../Livros/livros.php">Livros</a>
             <a href="../Estudantes/estudantes.php">Estudantes</a>
             <a href="../Emprestimos/emprestimos.php">Empréstimos</a>
@@ -19,6 +19,11 @@
 
     <main>
         <h2>Empréstimos Realizados</h2>
+
+        <a href="realizar_emprestimo.php">Realizar Novo Empréstimo
+            </a>
+
+
         <ul>
             <li>Harry Potter emprestado para João da Silva em 03/09/2024</li>
             <li>O Pequeno Príncipe emprestado para Maria Oliveira em 01/09/2024</li>

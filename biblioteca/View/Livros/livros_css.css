@@ -20,6 +20,7 @@ header h3 {
     font-size: 1.3rem;
 }
 
+
 nav {
     display: flex;
     gap: 50px;
@@ -76,52 +77,17 @@ footer {
     padding: 0.1rem;
 }
 
-.botoes {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-}
 
-.botoes a {
-    padding: 8px 30px;
+.botoes2 a {
+    padding: 10px 10px;
     font-size: 15px;
     background-color: #5c236a;
     color: white;
     border-radius: 8px;
     text-decoration: none;
-    margin: 0 10px;
     display: inline-block;
 }
 
 .botoes a:hover {
-    color: #e1def6;
-}
-
-.barra-pesquisa {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.barra-pesquisa input[type="text"] {
-    padding: 9px;
-    font-size: 14px;
-    width: 500px;
-    border: 1px solid #ccc;
-    border-radius: 45px;
-}
-
-.barra-pesquisa input[type="submit"] {
-    padding: 9px;
-    font-size: 14px;
-    background-color: #5c236a;
-    color: white;
-    border: none;
-    border-radius: 45px;
-    cursor: pointer;
-    margin-left: 15px;
-}
-
-.barra-pesquisa input[type="submit"]:hover {
     color: #e1def6;
 }

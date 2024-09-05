@@ -92,56 +92,6 @@ form input[type="submit"]:hover {
     position: relative;
 }
 
-.barra-pesquisa {
-    position: absolute;
-    top: 50px;
-    right: 35px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.barra-pesquisa input[type="text"] {
-    padding: 9px;
-    font-size: 14px;
-    width: 500px;
-    border: 1px solid #ccc;
-    border-radius: 45px;
-}
-
-.barra-pesquisa input[type="submit"] {
-    padding: 9px;
-    font-size: 14px;
-    background-color: #5c236a;
-    color: white;
-    border: none;
-    border-radius: 45px;
-    cursor: pointer;
-    margin-left: 15px;
-}
-
-.barra-pesquisa input[type="submit"]:hover {
-    color: #e1def6;
-}
-
-/* Estilo para a área de botões */
-.botoes {
-    margin-top: 20px;
-}
-
-.botoes a {
-    padding: 10px 30px;
-    font-size: 15px;
-    background-color: #5c236a;
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-    margin: 0 10px;
-    display: inline-block;
-}
-
-.botoes a:hover {
-    color: #e1def6;
-}
 
 /* Estilo para o rodapé */
 footer {

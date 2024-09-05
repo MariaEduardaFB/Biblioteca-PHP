@@ -10,7 +10,7 @@
     <header>
         <h3>Gerenciamento de Biblioteca</h3>
         <nav>
-            <a href="../View/index.php">Início</a>
+            <a href="../index.php">Início</a>
             <a href="../Livros/livros.php">Livros</a>
             <a href="../Estudantes/estudantes.php">Estudantes</a>
             <a href="../Emprestimos/emprestimos.php">Empréstimos</a>
@@ -20,12 +20,20 @@
     <main>
         <h2>Registrar Devolução</h2>
         <form action="processa_devolucao.php" method="POST">
-            <label for="livro">Livro:</label><br>
-            <input type="text" id="livro" name="livro" required><br><br>
+            <label for="emprestimo">Empréstimo:</label><br>
+
+            
+            <select id="emprestimo" name="emprestimo" required>
+                <option value="">Selecione um empréstimo</option>
+                <!-- As opções de empréstimos serão carregadas aqui quando o banco de dados estiver conectado -->
+                <option value="1">Exemplo Livro 1 - Nome Estudante 1 (Emprestado em: 2024-09-01)</option>
+                <option value="2">Exemplo Livro 2 - Nome Estudante 2 (Emprestado em: 2024-09-02)</option>
+            </select><br><br>
 
             <label for="data_devolucao">Data da Devolução:</label><br>
             <input type="date" id="data_devolucao" name="data_devolucao" required><br><br>
 
+            <!-- Botão para registrar a devolução -->
             <input type="submit" value="Registrar Devolução">
         </form>
     </main>

@@ -11,7 +11,7 @@
         <h3>Gerenciamento de Biblioteca</h3>
 
         <nav>
-            <a href="../View/index.php">Início</a>
+            <a href="../index.php">Início</a>
             <a href="../Livros/livros.php">Livros</a>
             <a href="../Estudantes/estudantes.php">Estudantes</a>
             <a href="../Emprestimos/emprestimos.php">Empréstimos</a>
@@ -20,7 +20,11 @@
     </header>
 
     <main>
-        <h2>Livros Disponíveis na Biblioteca</h2>
+        <div class="botoes2">
+            <h2>Livros Disponíveis na Biblioteca</h2>
+            <a href="cadastrar_livro.php" class="botao-adicionar-livro">Cadastrar Livro</a>
+        </div>
+
         <ul>
             <li>Harry Potter e a Pedra Filosofal</li>
             <li>O Senhor dos Anéis: A Sociedade do Anel</li>
