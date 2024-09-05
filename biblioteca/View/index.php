@@ -65,7 +65,7 @@
     <section class="historico">
 
         <div class="item a1">
-            <p>Emprestimos Recentes</p>
+            <p>Classicos disponíveis na nossa Biblioteca</p>
         </div>
 
 
@@ -91,13 +91,16 @@
     </section>
 
 
-    
 
-
-    
 
     <div class="lista_emprestimo">
             <a href="Emprestimos\emprestimos.php">Ver todos os Empréstimos
+            <img src="emprestimo.png" width="24" height="24">
+            </a>
+        </div>
+
+        <div class="lista_livro">
+            <a href="Livros\livros.php">Ver todos os Livros
             <img src="emprestimo.png" width="24" height="24">
             </a>
         </div>

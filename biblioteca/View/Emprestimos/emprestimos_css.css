@@ -32,9 +32,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #c081cf;
-    border-radius: 5px;
-    padding: 0px 15px;
+    color: #9a00c0;
 }
 
 main {
